@@ -57,6 +57,7 @@ X_test = sc.transform(X_test)
 import keras
 from keras.models import Sequential
 from keras.layers import Dense
+from keras.layers import Dropout
 
 
 #Init NN
@@ -64,12 +65,17 @@ classifier=Sequential()
 
 #Add headen layer 
 classifier.add(Dense(units=6, activation="relu", kernel_initializer="uniform",input_dim=11))
+classifier.add(Dropout(rate=0.1))
 
 #Add a second headen layer
 classifier.add(Dense(units=6, activation="relu", kernel_initializer="uniform"))
+classifier.add(Dropout(rate=0.1))
+
 
 #Add output layer
 classifier.add(Dense(units=1, activation="sigmoid", kernel_initializer="uniform"))
+classifier.add(Dropout(rate=0.1))
+
 
 #Compilation 
 classifier.compile(optimizer="adam",loss="binary_crossentropy", metrics=["accuracy"])
@@ -100,7 +106,7 @@ cm = confusion_matrix(y_test, y_pred)
 new_prediction = classifier.predict(sc.transform(np.array([[0.0,0,600,1,40,3,60000,2,1,1,50000]])))	
 new_prediction = (new_prediction > 0.5)
 
-
+#k-fold cross validation
 from keras.wrappers.scikit_learn import KerasClassifier
 from sklearn.model_selection import cross_val_score 
 
