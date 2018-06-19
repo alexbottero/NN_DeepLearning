@@ -2,7 +2,7 @@
 
 #Import Modules
 from keras.models import Sequential
-from keras.layers import Convoltion2D
+from keras.layers import Convolution2D
 from keras.layers import MaxPooling2D
 from keras.layers import Flatten
 from keras.layers import Dense
@@ -43,7 +43,7 @@ train_datagen = ImageDataGenerator(
 
 test_datagen = ImageDataGenerator(rescale=1./255)
 
-train_set = train_datagen.flow_from_directory(
+training_set = train_datagen.flow_from_directory(
         'dataset/training_set',
         target_size=(64, 64),
         #uptate weight
@@ -75,7 +75,7 @@ test_image=np.expand_dims(test_image,axis=0)
 
 
 result=classifier.predict(test_image)
-if result][0][0]=1:
+if result[0][0]==1:
     print("it's a dog")
 else:
     print("it's a cat")
